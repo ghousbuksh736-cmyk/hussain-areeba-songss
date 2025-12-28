@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+  body {
+    background: #000;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    font-family: 'Impact', sans-serif;
+    overflow: hidden;
+  }
+
+  .main-wrapper {
+    display: flex;
+    gap: 40px;
+  }
+
+  /* Dual Frames */
+  .frame {
+    position: relative;
+    width: 350px;
+    height: 480px;
+    border: 6px solid #ff0000;
+    box-shadow: 0 0 25px #ff0000;
+    overflow: hidden;
+    background: #111;
+  }
+
+  .photo {
+    width: 100%;
+    height: 100%;
+    background-size: cover;
+    background-position: center;
+    filter: grayscale(100%) brightness(0.6);
+    transition: 0.4s;
+  }
+
+  /* Playing State - Vibration and Color */
+  .playing .frame {
+    animation: vibration 0.1s infinite;
+    box-shadow: 0 0 50px #ff0000;
+  }
+
+  .playing .photo {
+    filter: grayscale(0%) brightness(1);
+    transform: scale(1.05);
+  }
+
+  /* Control Button */
+  .controls {
+    margin-top: 40px;
+    text-align: center;
+  }
+
+  button {
+    background: #ff0000;
+    color: white;
+    border: none;
+    padding: 20px 60px;
+    font-size: 25px;
+    cursor: pointer;
+    box-shadow: 0 0 20px #ff0000;
+    text-transform: uppercase;
+    font-weight: bold;
+    border-radius: 10px;
+  }
+
+  button:active { transform: scale(0.95); }
+
+  .status {
+    color: #ff0000;
+    margin-top: 15px;
+    font-size: 18px;
+    letter-spacing: 5px;
+    display: none;
+  }
+
+  .playing .status { display: block; }
+
+  @keyframes vibration {
+    0% { transform: translate(2px, 2px); }
+    50% { transform: translate(-2px, -3px); }
+    100% { transform: translate(2px, -2px); }
+  }
+</style>
+</head>
+<body id="mainBody">
+
+<div class="main-wrapper">
+  <div class="frame">
+    <div class="photo" style="background-image: url('hussain.jpg');"></div>
+    <div style="position:absolute; bottom:0; width:100%; background:rgba(255,0,0,0.8); color:white; text-align:center; padding:10px 0;">HUSSAIN</div>
+  </div>
+
+  <div class="frame">
+    <div class="photo" style="background-image: url('areeba.jpg');"></div>
+    <div style="position:absolute; bottom:0; width:100%; background:rgba(255,0,0,0.8); color:white; text-align:center; padding:10px 0;">AREEBA</div>
+  </div>
+</div>
+
+<div class="controls">
+  <button onclick="controlSystem()">PLAY SYSTEM</button>
+  <div class="status">SYSTEM HEAVY... SULTAN.MP3 PLAYING</div>
+</div>
+
+<audio id="sultanSong" src="sultan.mp3" loop></audio>
+
+<script>
+  function controlSystem() {
+    var song = document.getElementById("sultanSong");
+    var body = document.getElementById("mainBody");
+    var btn = document.querySelector("button");
+    
+    if (song.paused) {
+      song.play();
+      body.classList.add("playing");
+      btn.innerText = "STOP SYSTEM";
+    } else {
+      song.pause();
+      body.classList.remove("playing");
+      btn.innerText = "PLAY SYSTEM";
+    }
+  }
+</script>
+
+</body>
+</html>
